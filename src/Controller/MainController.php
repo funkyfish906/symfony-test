@@ -17,8 +17,6 @@ class MainController extends Controller
             ->getRepository(Developer::class)
             ->getDeveloperProjects();
 
-        dump($developers);
-        //die();
         return $this->render('main/index.html.twig', [
             'developers' => $developers,
         ]);

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -10,10 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Project
 {
-    public function __construct()
-    {
-        $this->developers = new ArrayCollection();
-    }
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -36,6 +33,11 @@ class Project
      * @ORM\JoinTable(name="project_developer")
      */
     private $developers;
+
+    public function __construct()
+    {
+        $this->developers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -64,5 +66,20 @@ class Project
         $this->description = $description;
 
         return $this;
+    }
+
+    public function getDevelopers(): Collection
+    {
+        return $this->developers;
+    }
+
+
+    public function addDevelopers(Developer ...$developers): void
+    {
+        foreach ($developers as $developer) {
+            if (!$this->developers->contains($developer)) {
+                $this->developers->add($developer);
+            }
+        }
     }
 }

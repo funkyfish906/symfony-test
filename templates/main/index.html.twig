@@ -9,13 +9,15 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello ! ✅</h1>
+    <h1>Projects for developers</h1>
 </div>
     {% for key, developer in developers %}
-        * {{ key }} - {{ developer.getFirstName()}}
-            {% for project in developer.projects %}
-                ---- {{ project.getName()}}
-            {% endfor %}
+        <h4>{{ developer.getFirstName()}}</h4>
+        <ul>
+        {% for project in developer.getProjects() %}
+               <li>{{ project.getName()}}</li>
+        {% endfor %}
+        </ul>
     {% endfor %}
 
 {% endblock %}

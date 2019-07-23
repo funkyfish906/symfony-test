@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -10,10 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Developer
 {
-    public function __construct()
-    {
-        $this->projects = new ArrayCollection();
-    }
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -40,7 +37,12 @@ class Developer
      * @ORM\ManyToMany(targetEntity="Project")
      * @ORM\JoinTable(name="project_developer")
      */
-    public $projects;
+    private $projects;
+
+    public function __construct()
+    {
+        $this->projects = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -81,5 +83,10 @@ class Developer
         $this->position = $position;
 
         return $this;
+    }
+
+    public function getProjects(): Collection
+    {
+        return $this->projects;
     }
 }
