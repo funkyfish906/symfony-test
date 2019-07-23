@@ -19,14 +19,15 @@ class DeveloperRepository extends ServiceEntityRepository
         parent::__construct($registry, Developer::class);
     }
 
-    public function getDeveloperProjects(): array
+    public function getDeveloperProjects($id): Developer
     {
-        $qb = $this->createQueryBuilder('d')
+        return $this->createQueryBuilder('d')
             ->leftJoin('d.projects', 'p')
+            ->where('d.id = :id')
             ->orderBy('d.first_name', 'ASC')
-            ->getQuery();
-
-        return $qb->execute();
+            ->setParameters(['id'=> $id])
+            ->getQuery()
+            ->getSingleResult();
     }
 
     // /**

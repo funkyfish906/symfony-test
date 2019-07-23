@@ -13,12 +13,24 @@ class MainController extends Controller
      */
     public function index()
     {
-        $developers = $this->getDoctrine()
-            ->getRepository(Developer::class)
-            ->getDeveloperProjects();
+        $developers = $this->getDoctrine()->getRepository(Developer::class)->findAll();
 
         return $this->render('main/index.html.twig', [
             'developers' => $developers,
+        ]);
+    }
+
+    /**
+     * @Route("/developer/{id}", name="developer")
+     */
+    public function developer(Developer $developer)
+    {
+        $developer = $this->getDoctrine()
+            ->getRepository(Developer::class)
+            ->getDeveloperProjects($developer);
+
+        return $this->render('main/developer.html.twig', [
+            'developer' => $developer,
         ]);
     }
 }

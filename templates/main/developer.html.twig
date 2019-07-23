@@ -18,18 +18,22 @@
     </style>
 
     <div class="example-wrapper">
-        <h1>Projects for developers</h1>
 
-        <h4>Developers</h4>
-        <ol>
-            {% for key, developer in developers %}
-
+        <h3>{{ developer.getFirstName() }} {{ developer.getLastName() }}</h3>
+        <h4>{{ developer.getPosition() }}</h4>
+        {% if developer.getProjects() is empty %}
+            <p> no projects </p>
+        {% else %}
+        <ul>
+            {% for project in developer.getProjects() %}
                 <li>
-                    <a href="/developer/{{ developer.getId() }}">{{ developer.getFirstName() }}</a>
+                    {{ project.getName() }}
+                    <p>{{ project.getDescription() }} </p>
                 </li>
-
             {% endfor %}
-        </ol>
+        </ul>
+        {% endif %}
+
     </div>
 
 {% endblock %}
